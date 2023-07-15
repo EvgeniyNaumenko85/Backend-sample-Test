@@ -1,0 +1,479 @@
+basePath: /
+definitions:
+  models.RequestMessage:
+    properties:
+      description:
+        type: string
+    type: object
+  models.RequestUser:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:9090
+info:
+  contact: {}
+  description: API server for Backend sample test Application
+  title: => BST API <=
+  version: "1.0"
+paths:
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: login
+      operationId: login
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.RequestUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      summary: SignIn
+      tags:
+      - auth
+  /auth/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: create account
+      operationId: create-account
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.RequestUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "406":
+          description: Not Acceptable
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      summary: SignUp
+      tags:
+      - auth
+  /messages:
+    post:
+      consumes:
+      - application/json
+      description: create message
+      operationId: create-message
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Input the message body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.RequestMessage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Create Message
+      tags:
+      - messages
+  /messages/{id}:
+    delete:
+      description: Delete message by ID
+      operationId: delete-message-by-ID
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID of the message
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Delete Message By ID
+      tags:
+      - messages
+    get:
+      description: get all message by pageID
+      operationId: get-all-message-by-pageID
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Input page ID to pagination
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Get All Message by PageID
+      tags:
+      - messages
+    put:
+      consumes:
+      - application/json
+      description: update message by ID
+      operationId: update-message-by-ID
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID of the message
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Input the message body to update
+        in: body
+        name: input
+        schema:
+          $ref: '#/definitions/models.RequestMessage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Update Message By ID
+      tags:
+      - messages
+  /users/:
+    delete:
+      description: delete user (self)
+      operationId: delete-user-(self)
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Delete User (self)
+      tags:
+      - users
+    get:
+      description: get all users
+      operationId: get-all-user
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Get All Users
+      tags:
+      - users
+    put:
+      description: update user (self)
+      operationId: update-user-(self)
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Input the message body to update
+        in: body
+        name: input
+        schema:
+          $ref: '#/definitions/models.RequestUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Update User (self)
+      tags:
+      - users
+  /users/current:
+    get:
+      description: get current user
+      operationId: get-current-user
+      parameters:
+      - default: Bearer <ваш JWT-токен>
+        description: Bearer Token Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+        default:
+          description: internal Server Error
+          schema:
+            type: ""
+      security:
+      - BearerAuth: []
+      summary: Get Current User
+      tags:
+      - users
+swagger: "2.0"
