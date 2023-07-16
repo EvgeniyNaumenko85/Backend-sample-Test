@@ -1,4 +1,6 @@
 .idea
 logs/
 desktop.ini
-utils/.env
+*.env
+/.env
+Backend sample test Golang.pdf

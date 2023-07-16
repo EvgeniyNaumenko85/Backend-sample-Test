@@ -13,10 +13,12 @@
 
 ### Использованы следующие технологии и библиотеки:
 - регистрация и аутентификация: JWT и middleware
-- фреймворк Gin
-- GORM
+- фреймворк Gin https://github.com/gin-gonic/gin
+- GORM https://github.com/go-gorm/gorm.io
 - подход Чистой Архитектуры в построении структуры приложения. Dependency injection
 - работа в СУБД PostgreSQL. Генерация файлов миграций
+- для подключения к БД и загрузки внеших переменных окружения:  
+  https://github.com/spf13/viper и https://github.com/joho/godotenv
 - для ведения логгированя использована библиотека: https://github.com/natefinch/lumberjack
 - для оформления документации использована библиотека: https://github.com/swaggo/swag
 - "Graceful Shutdown"
