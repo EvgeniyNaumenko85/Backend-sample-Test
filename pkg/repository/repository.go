@@ -7,7 +7,6 @@ import (
 )
 
 type Users interface {
-	//Close()
 	AddUser(ctx context.Context, u models.User) (err error)
 	AuthenticateUser(ctx context.Context, u models.User) (id int, err error)
 	GetUser(ctx context.Context, id int) (user models.User, err error)
@@ -17,7 +16,6 @@ type Users interface {
 }
 
 type Messages interface {
-	//Close()
 	AddMessage(ctx context.Context, t models.Message) (id int, err error)
 	DeleteMessage(ctx context.Context, id, userID int) (err error)
 	UpdateMessage(ctx context.Context, id, userID int, t models.Message) (err error)
@@ -37,8 +35,3 @@ func NewRepository(cfg string) *Repository {
 		Messages: NewMessageDB(messageDB),
 	}
 }
-
-//func (r *Repository) Close() {
-//	r.Users.Close()
-//	r.Messages.Close()
-//}

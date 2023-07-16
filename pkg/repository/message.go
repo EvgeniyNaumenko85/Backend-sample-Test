@@ -16,10 +16,6 @@ func NewMessageDB(db *gorm.DB) *MessageDB {
 	}
 }
 
-//func (d *MessageDB) Close() {
-//	closeConnection(d.db, "MessageDB")
-//}
-
 func (d *MessageDB) AddMessage(ctx context.Context, m models.Message) (id int, err error) {
 	err = d.db.Create(&m).Error
 	if err == nil {

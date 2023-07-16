@@ -16,3 +16,12 @@ func PutAdditionalSettings() {
 	AppSettings.AppParams.LogMaxBackups = 100
 	AppSettings.AppParams.AppVersion = "1.0"
 }
+
+type Config struct {
+	Host     string
+	Port     string
+	Username string
+	Password string
+	DBName   string
+	SSLMode  string
+}
